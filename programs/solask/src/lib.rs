@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("83P5LunUoDJuoAXQpB92A5CL4emuDpi78dFkqEsCn2CA");
+declare_id!("Fy9oEdoCQDzcDq9nMc2DfiCjVC7tkDfS6R4wrY42bT3M");
 
 #[program]
 pub mod solask {
@@ -14,11 +14,13 @@ pub mod solask {
     pub fn create_question(
         ctx: Context<CreateQuestion>,
         title: String,
+        link: String,
         multiple_answers: bool,
     ) -> Result<()> {
         let base_account = &mut ctx.accounts.base_account;
         let question = Question {
             title,
+            link,
             multiple_answers,
             answers_amount: 0,
             answers: vec![],
@@ -29,12 +31,14 @@ pub mod solask {
 
     pub fn add_answer(
         ctx: Context<AddAnswer>,
+        title: String,
+        link: String,
         question_index: u64,
-        answer_link: String,
     ) -> ProgramResult {
         let base_account = &mut ctx.accounts.base_account;
         let answer = Answer {
-            link: answer_link.to_string(),
+            title,
+            link,
             votes: vec![],
             downvotes: 0,
             upvotes: 0,
@@ -51,9 +55,9 @@ pub mod solask {
 
     pub fn vote_answer(
         ctx: Context<VoteAnswer>,
+        side: bool,
         question_index: u64,
         answer_index: u64,
-        side: bool,
     ) -> ProgramResult {
         let user_address = *ctx.accounts.user.to_account_info().key;
         let base_account = &mut ctx.accounts.base_account;
@@ -128,6 +132,7 @@ pub struct Vote {
 
 #[derive(Debug, Clone, AnchorSerialize, AnchorDeserialize)]
 pub struct Answer {
+    pub title: String,
     pub link: String,
     pub votes: Vec<Vote>,
     pub upvotes: u64,
@@ -138,6 +143,7 @@ pub struct Answer {
 #[derive(Debug, Clone, AnchorSerialize, AnchorDeserialize)]
 pub struct Question {
     pub title: String,
+    pub link: String,
     pub multiple_answers: bool,
     pub answers_amount: u64,
     pub answers: Vec<Answer>,

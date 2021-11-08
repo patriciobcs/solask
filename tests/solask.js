@@ -28,47 +28,47 @@ const main = async() => {
 
 
   // Create a QUESTION
-  await program.rpc.createQuestion("What is the the meaning of life?", true, {
+  await program.rpc.createQuestion("What is the the meaning of life?", "https://media.giphy.com/media/3oz8xIg91ZOMwYvSus/giphy.gif", true, {
     accounts: {
       baseAccount: baseAccount.publicKey,
       user: provider.wallet.publicKey,
     },
   });
 
-  // Fetch data from the account.
+  // Fetch data from the account
   let account = await program.account.baseAccount.fetch(baseAccount.publicKey);
   console.log('👀 First Question Answers Count', account.questions[0].answersAmount.toString())
 
-  // Add a first GIF
-  await program.rpc.addAnswer(new anchor.BN(0), "https://media.giphy.com/media/ef61oIGVyckY8/giphy.answer",{
+  // Add a first ANSWER
+  await program.rpc.addAnswer("42", "https://media.giphy.com/media/ef61oIGVyckY8/giphy.answer", new anchor.BN(0), {
     accounts: {
       baseAccount: baseAccount.publicKey,
       user: provider.wallet.publicKey,
     },
   });
 
-  // Add a second GIF
-  await program.rpc.addAnswer(new anchor.BN(0), "https://media.giphy.com/media/3o72F4nTnhd0fxsVhK/giphy.answer",{
+  // Add a second ANSWER
+  await program.rpc.addAnswer("GM", "https://media.giphy.com/media/3o72F4nTnhd0fxsVhK/giphy.answer", new anchor.BN(0), {
     accounts: {
       baseAccount: baseAccount.publicKey,
       user: provider.wallet.publicKey,
     },
   });
 
-  // Get the account again to see what changed.
+  // Get the account again to see what changed
   account = await program.account.baseAccount.fetch(baseAccount.publicKey);
   console.log('👀 First Question Answers Count', account.questions[0].answersAmount.toString());
 
-  // Upvote the first GIF
-  await program.rpc.voteAnswer(new anchor.BN(0), new anchor.BN(0), true, {
+  // Upvote the first ANSWER
+  await program.rpc.voteAnswer(true, new anchor.BN(0), new anchor.BN(0), {
     accounts: {
       baseAccount: baseAccount.publicKey,
       user: provider.wallet.publicKey,
     },
   });
 
-  // Downvote the second GIF
-  await program.rpc.voteAnswer(new anchor.BN(0), new anchor.BN(1), false, {
+  // Downvote the second ANSWER
+  await program.rpc.voteAnswer(false, new anchor.BN(0), new anchor.BN(1), {
     accounts: {
       baseAccount: baseAccount.publicKey,
       user: provider.wallet.publicKey,

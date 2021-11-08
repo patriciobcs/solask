@@ -1,11 +1,11 @@
 [programs.localnet]
-solask = "83P5LunUoDJuoAXQpB92A5CL4emuDpi78dFkqEsCn2CA"
+solask = "Fy9oEdoCQDzcDq9nMc2DfiCjVC7tkDfS6R4wrY42bT3M"
 
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "/Users/macbookproretina/.config/solana/id.json"
 
 [scripts]
