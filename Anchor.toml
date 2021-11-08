@@ -1,0 +1,12 @@
+[programs.localnet]
+solask = "83P5LunUoDJuoAXQpB92A5CL4emuDpi78dFkqEsCn2CA"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "/Users/macbookproretina/.config/solana/id.json"
+
+[scripts]
+test = "node tests/solask.js" 
