@@ -10,3 +10,4 @@ wallet = "/Users/macbookproretina/.config/solana/id.json"
 
 [scripts]
 test = "node tests/solask.js" 
+run = "node tests/solask.js" 

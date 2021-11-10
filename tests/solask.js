@@ -35,6 +35,14 @@ const main = async() => {
     },
   });
 
+  // Upvote the first QUESTION
+  await program.rpc.voteQuestion(true, new anchor.BN(0), {
+    accounts: {
+      baseAccount: baseAccount.publicKey,
+      user: provider.wallet.publicKey,
+    },
+  });
+
   // Fetch data from the account
   let account = await program.account.baseAccount.fetch(baseAccount.publicKey);
   console.log('👀 First Question Answers Count', account.questions[0].answersAmount.toString())

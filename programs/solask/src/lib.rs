@@ -23,7 +23,11 @@ pub mod solask {
             link,
             multiple_answers,
             answers_amount: 0,
+            downvotes: 0,
+            upvotes: 0,
+            votes: vec![],
             answers: vec![],
+            user_address: *base_account.to_account_info().key,
         };
         base_account.questions.push(question);
         Ok(())
@@ -47,6 +51,37 @@ pub mod solask {
         if let Some(question) = base_account.questions.get_mut(question_index as usize) {
             question.answers.push(answer);
             question.answers_amount += 1;
+        } else {
+            return Err(ErrorCode::QuestionNotFound.into());
+        }
+        Ok(())
+    }
+
+    pub fn vote_question(
+        ctx: Context<VoteQuestion>,
+        side: bool,
+        question_index: u64,
+    ) -> ProgramResult {
+        let user_address = *ctx.accounts.user.to_account_info().key;
+        let base_account = &mut ctx.accounts.base_account;
+
+        if let Some(question) = base_account.questions.get_mut(question_index as usize) {
+            if let Some(_) = question
+                .votes
+                .iter()
+                .position(|vote| (*vote).user_address == user_address)
+            {
+                return Err(ErrorCode::UnauthorizedToVote.into());
+            }
+
+            let vote = Vote { side, user_address };
+            question.votes.push(vote);
+
+            if side {
+                question.upvotes += 1;
+            } else {
+                question.downvotes += 1;
+            }
         } else {
             return Err(ErrorCode::QuestionNotFound.into());
         }
@@ -117,6 +152,14 @@ pub struct AddAnswer<'info> {
 }
 
 #[derive(Accounts)]
+pub struct VoteQuestion<'info> {
+    #[account(mut)]
+    pub base_account: Account<'info, BaseAccount>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+}
+
+#[derive(Accounts)]
 pub struct VoteAnswer<'info> {
     #[account(mut)]
     pub base_account: Account<'info, BaseAccount>,
@@ -144,9 +187,13 @@ pub struct Answer {
 pub struct Question {
     pub title: String,
     pub link: String,
+    pub votes: Vec<Vote>,
+    pub upvotes: u64,
+    pub downvotes: u64,
     pub multiple_answers: bool,
     pub answers_amount: u64,
     pub answers: Vec<Answer>,
+    pub user_address: Pubkey,
 }
 
 #[account]

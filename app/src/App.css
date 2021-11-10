@@ -1,0 +1,307 @@
+:root {
+  --main-gradient: -webkit-linear-gradient(left, #4e44ce, #35aee2);
+}
+
+.App {
+  background-color: #000000;
+  height: 100vh;
+  width: 100%;
+  overflow: scroll;
+  text-align: center;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 30px 0 30px;
+}
+
+.header-container {
+  margin: auto;
+  width: 100%;
+}
+
+.authed-container {
+  height: 100%;
+  widows: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.header {
+  margin: 0;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+}
+
+.sub-text {
+  font-size: 25px;
+  color: white;
+}
+
+.gradient-text {
+  background: var(--main-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-button {
+  height: 45px;
+  border: 0;
+  width: fit-content;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.connect-wallet-button {
+  background: -webkit-linear-gradient(left, #60c657, #35aee2);
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
+}
+
+.submit-gif-button {
+  background: var(--main-gradient);
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  border-radius: 10px;
+  left: 0;
+  padding-bottom: 1rem;
+}
+
+.twitter-logo {
+  width: 35px;
+  height: 35px;
+}
+
+.footer-text {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.img-container {
+  position: relative;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 1rem 0;
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.connected-container input[type='text'] {
+  display: inline-block;
+  color: white;
+  min-width: 245px;
+  height: 50px;
+  padding: 2px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: double 1px transparent;
+  border-radius: 10px;
+  background-image: linear-gradient(black, black), 
+                    var(--main-gradient);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-top: 3rem;
+}
+
+.card {
+  background: var(--main-gradient);;
+  flex-basis: 25%;
+  border-radius: 0.6em;
+  margin: 1em;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25), 0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
+  transition: all ease 200ms;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12), 0 8px 32px -8px hsla(0, 0%, 0%, 0.14), 0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+}
+
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card h2 {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  transition: all ease-in 100ms;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.card p {
+  color: #777;
+}
+
+.card h5 {
+  font-weight: 400;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  background: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-body {
+  padding: 0.5rem;
+  height: 5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vote-button {
+  padding: 1rem;
+  background: transparent;
+  border: transparent;
+  position: absolute; 
+  display: none;
+  cursor: pointer;
+}
+
+.card:hover .vote-button {
+  display: inline;
+}
+
+.vote-button svg {
+  left: 0;
+  height: 30px;
+  width: 30px;
+  fill: url(#main-gradient);
+}
+
+.upvote-button {
+  left: 0;
+}
+
+.downvote-button {
+  right: 0;
+}
+
+.input-link {
+  position: relative;
+  margin: auto;
+}
+
+.reactGiphySearchbox-componentWrapper {
+  position: absolute;
+  width: fit-content;
+  visibility: hidden;
+  left: 50%;
+  margin-left: -122.5px;
+  min-width: 245px;
+}
+
+.reactGiphySearchbox-searchForm-form {
+  display: none;
+}
+
+.reactGiphySearchbox-listWrapper {
+  position: absolute; 
+  bottom: -200px;
+  background: var(--main-gradient);
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.reactGiphySearchbox-poweredByGiphy {
+  position: absolute; 
+  bottom: -220px;
+  left: 80px;
+}
+
+.input-link-write:focus .reactGiphySearchbox-componentWrapper {
+  visibility: visible;
+}
+
+.input-link input {
+  width: 100%;
+}
+
+.form-item {
+  flex: 1;
+}
+
+.connected-container button {
+  height: 50px;
+  flex: 0 1;
+}
+
+@media (max-width: 1400px) {
+  .card {
+    flex-basis: 29%;
+  }
+}
+
+@media (max-width: 950px) {
+  .card {
+    flex-basis: 45%;
+  }
+}
+
+@media (max-width: 780px) {
+  .card {
+    flex-basis: 100%;
+  }
+  .connected-container button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 0;
+  }
+  .submit-gif-button {
+    margin: 0;
+  }
+}

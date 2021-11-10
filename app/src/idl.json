@@ -1,0 +1,292 @@
+{
+  "version": "0.0.0",
+  "name": "solask",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "createQuestion",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "link",
+          "type": "string"
+        },
+        {
+          "name": "multipleAnswers",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "addAnswer",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "link",
+          "type": "string"
+        },
+        {
+          "name": "questionIndex",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "voteQuestion",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "side",
+          "type": "bool"
+        },
+        {
+          "name": "questionIndex",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "voteAnswer",
+      "accounts": [
+        {
+          "name": "baseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "side",
+          "type": "bool"
+        },
+        {
+          "name": "questionIndex",
+          "type": "u64"
+        },
+        {
+          "name": "answerIndex",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BaseAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "questionsAmount",
+            "type": "u64"
+          },
+          {
+            "name": "questions",
+            "type": {
+              "vec": {
+                "defined": "Question"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "Vote",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "side",
+            "type": "bool"
+          },
+          {
+            "name": "userAddress",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Answer",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "link",
+            "type": "string"
+          },
+          {
+            "name": "votes",
+            "type": {
+              "vec": {
+                "defined": "Vote"
+              }
+            }
+          },
+          {
+            "name": "upvotes",
+            "type": "u64"
+          },
+          {
+            "name": "downvotes",
+            "type": "u64"
+          },
+          {
+            "name": "userAddress",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Question",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "link",
+            "type": "string"
+          },
+          {
+            "name": "votes",
+            "type": {
+              "vec": {
+                "defined": "Vote"
+              }
+            }
+          },
+          {
+            "name": "upvotes",
+            "type": "u64"
+          },
+          {
+            "name": "downvotes",
+            "type": "u64"
+          },
+          {
+            "name": "multipleAnswers",
+            "type": "bool"
+          },
+          {
+            "name": "answersAmount",
+            "type": "u64"
+          },
+          {
+            "name": "answers",
+            "type": {
+              "vec": {
+                "defined": "Answer"
+              }
+            }
+          },
+          {
+            "name": "userAddress",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 300,
+      "name": "QuestionNotFound",
+      "msg": "Question not found"
+    },
+    {
+      "code": 301,
+      "name": "AnswerNotFound",
+      "msg": "Answer not found"
+    },
+    {
+      "code": 302,
+      "name": "UnauthorizedToAddAnswer",
+      "msg": "You have already add answer."
+    },
+    {
+      "code": 303,
+      "name": "UnauthorizedToVote",
+      "msg": "You have already voted."
+    }
+  ],
+  "metadata": {
+    "address": "Fy9oEdoCQDzcDq9nMc2DfiCjVC7tkDfS6R4wrY42bT3M"
+  }
+}
